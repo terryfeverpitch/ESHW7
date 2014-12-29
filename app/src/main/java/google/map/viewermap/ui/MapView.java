@@ -64,41 +64,57 @@ public class MapView extends WebView {
 	}
 	
 	public void recordPlace() {
-//		loadUrl("javascript:androidResponse();void(0)");
 		markPlace();
 		loadUrl("javascript:getPlaceInfo()");
 	}
+
+    public void setPath(String start, String end) {
+        Toast t = Toast.makeText(ctx, "From " + start + " to " + end, Toast.LENGTH_SHORT);
+        t.show();
+        String input = start + ", " + end;
+        end = "25.074378, 121.661085";
+        loadUrl("javascript:setEnd('" + end + "')");
+        loadUrl("javascript:calRoute()");
+    }
+
+    public void setStart() {
+//        Toast t = Toast.makeText(ctx, "set start", 2000);
+//        t.show();
+    }
+
+    public void setEnd() {
+//        Toast t = Toast.makeText(ctx, "set end", 2000);
+//        t.show();
+    }
 	
 	public void getFocus(int index) {
-		Toast t = Toast.makeText(ctx, "focus", 2000);
+		Toast t = Toast.makeText(ctx, "focus", Toast.LENGTH_SHORT);
 		
 		loadUrl("javascript:focus('" + index + "')");
 		
 		t.show();
 	}
-
-	public boolean isReady() {
-		return this.loaded;
-	}
 	
 	public ArrayList<Place> getRecords() {
-		return records;
+        return records;
 	}
 	
 	final class GetJavascriptVarHandler {
+
 		GetJavascriptVarHandler() {
-	   }
+
+        }
 
 	   // This annotation is required in Jelly Bean and later:
 	   @JavascriptInterface
 	   public void sendToAndroid(String text) {
-		   Toast t = Toast.makeText(ctx, text, 2000);
+		   Toast t = Toast.makeText(ctx, text, Toast.LENGTH_SHORT);
 		   t.show();
 	   }
 	   
 	   @JavascriptInterface
 	   public void sendLatLng(float lat, float lng) {
-		   Toast t = Toast.makeText(ctx, "lat = " + lat + ", lng = " + lng, 2000);
+		   Toast t = Toast.makeText(ctx, "lat = " + lat + ", lng = " + lng, Toast.LENGTH_SHORT);
 		   t.show();
 	   }
 	   
@@ -116,7 +132,7 @@ public class MapView extends WebView {
 		   if(!contains)
 			   records.add(new Place(place, lat, lng));
 		   
-		   Toast t = Toast.makeText(ctx, place + " (" + lat + ", " + lng + ")", 4000);
+		   Toast t = Toast.makeText(ctx, place + " (" + lat + ", " + lng + ")", Toast.LENGTH_SHORT);
 		   t.show();
 	   }
 	}
@@ -125,7 +141,8 @@ public class MapView extends WebView {
 		private String name;
 		private float lat;
 		private float lng;
-		public Place(String name, float lat, float lng) {
+
+        public Place(String name, float lat, float lng) {
 			this.name = name;
 			this.lat = lat;
 			this.lng = lng;
