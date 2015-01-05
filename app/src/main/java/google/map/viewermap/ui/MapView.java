@@ -71,9 +71,18 @@ public class MapView extends WebView {
     public void setPath(String start, String end) {
         Toast t = Toast.makeText(ctx, "From " + start + " to " + end, Toast.LENGTH_SHORT);
         t.show();
-        String input = start + ", " + end;
-        end = "25.074378, 121.661085";
+
+        for(Place tmp : records) {
+            if(tmp.getName().equals(start))
+                start = tmp.getLocation();
+            if(tmp.getName().equals(end))
+                end = tmp.getLocation();
+        }
+//        start = "25.074378, 121.661085";
+        loadUrl("javascript:setStart('" + start + "')");
+//        end = "25.074378, 121.661085";
         loadUrl("javascript:setEnd('" + end + "')");
+
         loadUrl("javascript:calRoute()");
     }
 

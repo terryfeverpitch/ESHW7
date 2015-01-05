@@ -20,7 +20,7 @@
             var routeBoxer = null;
             var directionService = null;
             var directionsRenderer = null;
-            var start = "大同大學";
+            var start = null;
             var end = null;
 
             function customZoomControl(controlDiv, map) {
@@ -152,17 +152,22 @@
             			currentPlace.geometry.location.lat(), currentPlace.geometry.location.lng());
             }
 
-            function setStart(start) {
-                start = start;
+            function setStart(inputStart) {
+                start = inputStart;
+
+                // window.getJsVar.sendToAndroid(end);
             }
 
             function setEnd(inputEnd) {
                 end = inputEnd;
 
-                window.getJsVar.sendToAndroid(end);
+                // window.getJsVar.sendToAndroid(end);
             }
 
             function calRoute() {
+                if(start == null || end == null)
+                    return;
+
                 clearBoxes();
 
                 var request = {
